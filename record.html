@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>君林科技</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/basic.css" rel="stylesheet"/>
+    <link href="assets/css/custom.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="assets/css/pages/record.css">
+</head>
+<body>
+<div id="page-wrapper">
+    <div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">日志审计</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" style="word-wrap: break-word;table-layout: fixed">
+                <thead>
+                <tr>
+                    <th style="width: 4%">#</th>
+                    <th style="width: 8%">用户名</th>
+                    <th style="width: 15%">时间</th>
+                    <th style="width: 73%">记录</th>
+                </tr>
+                </thead>
+                <tbody id="tableContent">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script type="text/html" id="tpl_tableContent">
+    <% for (var i = 0 ; i < array.length ; i++){ %>
+    <tr>
+        <td><%=array[i].id%></td>
+        <td><%=array[i].userName%></td>
+        <td><%=array[i].time%></td>
+        <td style="text-align: left"><%=array[i].journal%></td>
+    </tr>
+    <% } %>
+</script>
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+
+
+<script src="assets/js/template-web.js"></script>
+<script src="assets/js/pagejs/record.js"></script>
+
+</body>
+</html>

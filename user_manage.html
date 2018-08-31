@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>君林科技</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/basic.css" rel="stylesheet"/>
+    <link href="assets/css/custom.css" rel="stylesheet"/>
+    <link href="assets/css/pricing.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="assets/css/pages/user_manage.css">
+</head>
+<body>
+<div id="page-wrapper">
+    <div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">用户管理</h1>
+        </div>
+    </div>
+    <!--内容-->
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-info btn-add" data-toggle="modal" data-target="#addModal">添加</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>姓名</th>
+                    <th>职位</th>
+                    <th>角色</th>
+                    <th>公司名称</th>
+                    <th>公司地址</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tableContent">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--添加模态框-->
+<div class="modal fade " id="addModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addform">
+                    <div class="form-group">
+                        <label for="username" class="control-label">用户名:</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="position" class="control-label">职位:</label>
+                        <input type="text" class="form-control" id="position" name="position">
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="control-label">角色:</label>
+                        <input type="text" class="form-control" id="role" name="role">
+                    </div>
+                    <div class="form-group">
+                        <label for="company" class="control-label">公司名称:</label>
+                        <input type="text" class="form-control" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="control-label">公司地址:</label>
+                        <textarea class="form-control" id="address" name="address"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <span id="returnMessage" class="glyphicon"> </span>
+                        <button type="button" class="btn btn-default right btn-close" data-dismiss="modal">关闭</button>
+                        <button id="addSubmitBtn" type="button" class="btn btn-primary">确定</button>
+                        <button id="editSubmitBtn" type="button" class="btn btn-primary">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/html" id="tpl_tableContent">
+    <% for(var i = 0 ; i < array.length ; i++){ %>
+    <tr id="<%=array[i].id%>">
+        <td><%=array[i].id%></td>
+        <td><%=array[i].userName%></td>
+        <td><%=array[i].position%></td>
+        <td><%=array[i].role%></td>
+        <td><%=array[i].company%></td>
+        <td><%=array[i].address%></td>
+        <td>
+            <button type="button" class="btn btn-primary btn-xs btn-edit" data-toggle="modal" data-target="#addModal">
+                编辑
+            </button>
+            <button type="button" class="btn btn-danger btn-xs btn-delete">删除</button>
+        </td>
+    </tr>
+    <% } %>
+</script>
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+
+
+<script src="assets/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="assets/js/template-web.js"></script>
+<script src="assets/js/pagejs/user_manage.js"></script>
+
+</body>
+</html>

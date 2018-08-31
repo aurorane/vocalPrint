@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>君林科技</title>
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/basic.css" rel="stylesheet"/>
+    <link href="assets/css/custom.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/datetimepicker/bootstrap-datetimepicker.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="assets/css/pages/index.css">
+</head>
+<body>
+<div id="page-wrapper">
+    <div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">工业声纹</h1>
+        </div>
+    </div>
+    <!--内容-->
+    <div class="row">
+        <div class="col-md-6 myChartBox">
+            <div id="myChart2" style="width: 100%;height: 400px"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="myChart1" style="width: 100%;height: 400px"></div>
+        </div>
+    </div>
+    <div class="row monitor">
+        <div class="col-md-6 myChartBox">
+            <h4 class="title">监听通道</h4>
+            <form class="form-inline" id="form">
+                <div data-toggle="distpicker">
+                    <div class="form-group">
+                        <label class="sr-only" for="province">Province</label>
+                        <select class="form-control" id="province"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="city">City</label>
+                        <select class="form-control" id="city"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="district">District</label>
+                        <select class="form-control" id="district"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="equipment">设备</label>
+                        <select class="form-control" id="equipment" title="设备选择">
+                            <option value="" selected disabled>请选择通道</option>
+                            <option value="通道一">通道一</option>
+                            <option value="通道二">通道二</option>
+                            <option value="通道三">通道三</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="dtp_input1" class="control-label">开始时间 : </label>
+                        <div class="input-group date form_datetime" data-link-field="dtp_input1">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input1" value=""/><br/>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtp_input2" class="control-label">结束时间 : </label>
+                        <div class="input-group date form_date" data-link-field="dtp_input2">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value=""/><br/>
+                    </div>
+
+                </div>
+            </form>
+            <button type="button" class="btn btn-primary confirm" id="btn_sure">确定</button>
+            <button type="button" class="btn btn-info confirm" id="btn_realTime">实时</button>
+            <div id="audioTime"></div>
+            <audio src="" controls class="audio" id="myAudio"></audio>
+        </div>
+        <div class="col-md-6 myChartBox">
+            <h4 class="title">事件报警记录</h4>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>时间</th>
+                    <th>事件报警记录</th>
+                    <th>城市</th>
+                    <th>状态</th>
+                    <th>侦听</th>
+                </tr>
+                </thead>
+                <tbody id="tableCont">
+                <!--表格数据-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--结束-->
+</div>
+</div>
+
+<!--处理未处理模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridSystemModalLabel">处理状态</h4>
+            </div>
+            <div class="modal-body">
+                <!--当前表格处理信息-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/html" id="tpl_tableCont">
+    <% for (var i = 0 ; i < array.length ; i++ ){ %>
+    <tr id="<%=array[i].id%>">
+        <td><%=array[i].id%></td>
+        <td><%=array[i].time%></td>
+        <td><%=array[i].record%></td>
+        <td><%=array[i].city%></td>
+        <td>
+            <% if(array[i].state === '已处理'){ %>
+            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">已处理</button>
+            <% } else { %>
+            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">未处理</button>
+            <% } %>
+        </td>
+        <td style="position: relative">
+            <img src="assets/img/horn.png" alt="" class="tdAudioImg">
+            <audio src="<%=array[i].warnUrl%>" controls class="tdAudio"></audio>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<!--echarts-->
+<script src="assets/js/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+<script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+
+<!-- 省市区联动-->
+<script src="assets/dispicker/distpicker.data.js"></script>
+<script src="assets/dispicker/distpicker.js"></script>
+<!--时间段-->
+<script src="assets/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="assets/js/template-web.js"></script>
+
+<script src="assets/js/pagejs/index.js"></script>
+
+
+<script>
+    $(function () {
+
+    })
+</script>
+
+
+</body>
+</html>

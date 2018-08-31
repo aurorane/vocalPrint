@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>君林科技</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/basic.css" rel="stylesheet"/>
+    <link href="assets/css/custom.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="assets/css/pages/configure.css">
+</head>
+<body>
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">声纹配置</h1>
+            </div>
+        </div>
+        <!--内容-->
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info add_configure" data-toggle="modal" data-target="#addModal">
+                    添加配置
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>SN码</th>
+                        <th>位置</th>
+                        <th>类型</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableContent">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--点击添加弹出模态框-->
+<div class="modal fade " id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addLabel">配置信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addform">
+                    <div class="form-group">
+                        <label for="loginname" class="control-label">SN码:</label>
+                        <input type="text" class="form-control" id="loginname" name="loginname">
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="control-label">位置:</label>
+                        <input type="text" class="form-control" id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="mold" class="control-label">类型:</label>
+                        <select name="mold" id="mold" class="form-control">
+                            <option value="" disabled>请选择传感器类型</option>
+                            <option value="传感器1">传感器1</option>
+                            <option value="传感器2">传感器2</option>
+                            <option value="传感器3">传感器3</option>
+                        </select>
+                    </div>
+                    <div class="text-right">
+                        <span id="returnMessage" class="glyphicon"> </span>
+                        <button type="button" class="btn btn-default right btn-close" data-dismiss="modal">关闭</button>
+                        <button id="submitBtn" type="button" class="btn btn-primary">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑模态框-->
+<div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editLabel">配置信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateform">
+                    <div class="form-group">
+                        <label for="loginname1" class="control-label">SN码:</label>
+                        <input type="text" class="form-control" id="loginname1" name="loginname1">
+                    </div>
+                    <div class="form-group">
+                        <label for="address1" class="control-label">位置:</label>
+                        <input type="text" class="form-control" id="address1" name="address1">
+                    </div>
+                    <div class="form-group">
+                        <label for="mold1" class="control-label">类型:</label>
+                        <select name="mold1" id="mold1" class="form-control">
+                            <option value="" disabled>请选择传感器类型</option>
+                            <option value="传感器1">传感器1</option>
+                            <option value="传感器2">传感器2</option>
+                            <option value="传感器3">传感器3</option>
+                        </select>
+                    </div>
+                    <div class="text-right">
+                        <span id="returnMessage1" class="glyphicon"> </span>
+                        <button type="button" class="btn btn-default right btn-close" data-dismiss="modal">关闭</button>
+                        <button id="submitBtn1" type="button" class="btn btn-primary">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="tpl_tableContent">
+    <% for (var i = 0 ; i < array.length ; i++ ){ %>
+    <tr id="<%=array[i].id%>">
+        <td><%=array[i].id%></td>
+        <td><%=array[i].name%></td>
+        <td><%=array[i].address%></td>
+        <td><%=array[i].mold%></td>
+        <td>
+            <button class="btn btn-primary btn-xs edit" data-toggle="modal" data-target="#editModal">编辑</button>
+            <button class="btn btn-danger btn-xs delete">删除</button>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+
+
+<script src="assets/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="assets/js/template-web.js"></script>
+<script src="assets/js/pagejs/configure.js"></script>
+
+
+</body>
+</html>

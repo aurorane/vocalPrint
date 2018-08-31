@@ -1,0 +1,48 @@
+.myChartBox{
+    margin-bottom: 30px;
+}
+.monitor{
+    margin: 30px 0;
+
+}
+.confirm{
+    margin-bottom: 10px;
+}
+.audio{
+    display: block;
+}
+.btn-xs{
+    padding: 3px 5px;
+}
+h4.title{
+    color: #ED7929;
+}
+#audioTime{
+    font-size: 16px;
+    margin: 10px auto;
+}
+.tdAudioImg{
+    position: relative;
+    z-index: 10;
+    width: 24px;
+    cursor: pointer;
+}
+.tdAudio{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px
+}
+@media (min-width: 768px){
+    .form-inline .form-group {
+        display: inline-block;
+        margin-bottom: 10px;
+        vertical-align: middle;
+    }
+}
+@media (max-width: 768px){
+    .form-inline .form-group {
+        margin-bottom: 10px;
+    }
+}
